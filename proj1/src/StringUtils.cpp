@@ -60,6 +60,9 @@ std::string Strip(const std::string &str) noexcept{
 }
 
 std::string Center(const std::string &str, int width, char fill) noexcept{
+    if (static_cast<size_t>(width) <= str.length()) {
+        return str;
+    }
     size_t space = (width - str.length());
     size_t left= space / 2;
     size_t right = space - left;
