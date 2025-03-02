@@ -135,7 +135,15 @@ std::string Join(const std::string &str, const std::vector< std::string > &vect)
 
 std::string ExpandTabs(const std::string &str, int tabsize) noexcept{
     if (tabsize < 0) return str;
-    
+    if (tabsize == 0){
+        std::string result;
+        for (char ch : str) {
+            if (ch != '\t') {
+                result += ch;
+            }
+        }
+        return result;
+    }
     std::string result;
     int column = 0; 
 
