@@ -134,17 +134,17 @@ std::string Join(const std::string &str, const std::vector< std::string > &vect)
 }
 
 std::string ExpandTabs(const std::string &str, int tabsize) noexcept{
+    if (tabsize <= 0) return str;
+    
     std::string result;
     int column = 0; 
 
-    if (tabsize <= 0) return str;
-    
     for (char ch : str) {
         if (ch == '\t') {
             int spaces_to_add = tabsize - (column % tabsize); 
             result.append(spaces_to_add, ' '); 
             column += spaces_to_add; 
-        } else if (ch == '\n' || ch == '\r') {
+        } else if (ch == '\n') {
             result += ch;
             column = 0;
         } 
