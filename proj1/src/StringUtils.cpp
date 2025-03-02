@@ -134,14 +134,23 @@ std::string Join(const std::string &str, const std::vector< std::string > &vect)
 }
 
 std::string ExpandTabs(const std::string &str, int tabsize) noexcept{
-    std::string new_str = str; //create new string copy for replacment
-    size_t first_tab = new_str.find('\t'); //find first index/position of tab
-    while (first_tab != std::string::npos) { //while tab exists
-        int spaces = tabsize - (first_tab % tabsize); //calculate spaces needed to replace tab
-        new_str.replace(first_tab, 1, std::string(spaces, ' ')); //replace tab with calculated spaces
-        first_tab = new_str.find('\t', first_tab + spaces); //find next tab
+    std::string result;
+    int column = 0; 
+
+    if (tabsize <= 0) return str;
+    
+    for (char ch : str) {
+        if (ch == '\t') {
+            int spaces_to_add = tabsize - (column % tabsize); 
+            result.append(spaces_to_add, ' '); 
+            column += spaces_to_add; 
+        } else {
+            result += ch;
+            column = (ch == '\n') ? 0 : column + 1; 
+        }
     }
-    return new_str;
+
+    return result;
 }
 
 int EditDistance(const std::string &left, const std::string &right, bool ignorecase) noexcept{
