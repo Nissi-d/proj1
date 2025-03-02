@@ -142,14 +142,15 @@ std::string ExpandTabs(const std::string &str, int tabsize) noexcept{
     for (char ch : str) {
         if (ch == '\t') {
             int spaces_to_add = tabsize - (column % tabsize); 
-            if (spaces_to_add == tabsize){
-                spaces_to_add = 0;
-            }
             result.append(spaces_to_add, ' '); 
             column += spaces_to_add; 
-        } else {
+        } else if (ch == '\n' || ch == '\r') {
             result += ch;
-            column = (ch == '\n') ? 0 : column + 1; 
+            column = 0;
+        } 
+        else {
+            result += ch;
+            column++;
         }
     }
 
