@@ -70,14 +70,18 @@ std::string Center(const std::string &str, int width, char fill) noexcept{
 }
 
 std::string LJust(const std::string &str, int width, char fill) noexcept{
+    if(width <= static_cast<int>(str.length())){
+        return str;
+    }
     size_t space = (width - str.length());
-    std::string(space,fill);
     return str+std::string(space,fill);
 }
 
 std::string RJust(const std::string &str, int width, char fill) noexcept{
+    if(width <= static_cast<int>(str.length())){
+        return str;
+    }
     size_t space = (width - str.length());
-    std::string(space,fill);
     return std::string(space,fill) + str;
 }
 
